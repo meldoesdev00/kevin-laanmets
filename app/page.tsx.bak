@@ -1,0 +1,813 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+
+/* ================================================================
+   DATA
+================================================================ */
+
+const HERO_IMAGES = [
+  "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&q=80",
+  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80",
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80",
+  "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1920&q=80",
+];
+
+const SERVICES = [
+  {
+    title: "Real estate sale",
+    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure.",
+  },
+  {
+    title: "Real estate rental",
+    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.",
+  },
+  {
+    title: "Real estate purchase",
+    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt neque porro quisquam.",
+  },
+  {
+    title: "Cooperation with partners",
+    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab illo inventore veritatis et quasi architecto.",
+  },
+];
+
+const TESTIMONIALS = [
+  {
+    name: "Anna Kask",
+    role: "Home Buyer",
+    text: "Working together was an absolute pleasure. Professional, responsive, and truly understood what we were looking for. Found our dream home within three weeks.",
+  },
+  {
+    name: "Martin Lepp",
+    role: "Home Seller",
+    text: "Sold our apartment above asking price. The market analysis and marketing strategy were spot on. I couldn't be more satisfied with the outcome.",
+  },
+  {
+    name: "Laura Tamm",
+    role: "First-Time Buyer",
+    text: "Incredibly patient and knowledgeable. Every step of the process was explained clearly and we always felt confident. Highly recommend to anyone.",
+  },
+  {
+    name: "Jüri Mägi",
+    role: "Property Investor",
+    text: "Outstanding service from start to finish. Communication was always clear and timely — we felt like we were in completely safe hands throughout.",
+  },
+  {
+    name: "Kadi Lõhmus",
+    role: "Tenant",
+    text: "Found us the perfect rental that matched every one of our criteria. Smooth process, excellent attention to detail, and a genuinely personal approach.",
+  },
+];
+
+const STEPS = [
+  {
+    num: "01",
+    title: "Getting to know you and mapping your goals",
+    body: "I will come to you, look over the property and talk through your goals, timeframe and expectations.",
+  },
+  {
+    num: "02",
+    title: "Market analysis and pricing",
+    body: "I will analyze the market, compare similar transactions and prepare a strategic pricing.",
+  },
+  {
+    num: "03",
+    title: "Preparation and professional presentation",
+    body: "We will prepare sales materials, organize professional photography or filming and prepare the property so that it appeals to the right buyers.",
+  },
+  {
+    num: "04",
+    title: "Active marketing and sales",
+    body: "The property reaches the targeted channels. I lead showings, communicate with interested buyers and keep you informed throughout the process.",
+  },
+  {
+    num: "05",
+    title: "Negotiations and a successful transaction",
+    body: "I represent your interests in negotiations, coordinate with the notary, do a pre-purchase inspection and complete the transaction.",
+  },
+];
+
+const VIDEO_COVERS = [
+  "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=500&q=80",
+  "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=500&q=80",
+  "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=500&q=80",
+];
+
+/* ================================================================
+   HOOK – fade-in on scroll
+================================================================ */
+
+function useFadeIn(threshold = 0.15) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return { ref, visible };
+}
+
+/* ================================================================
+   NAVBAR
+================================================================ */
+
+function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "bg-white/95 backdrop-blur-md shadow-[0_1px_0_0_rgba(0,0,0,0.06)]"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="mx-auto max-w-7xl px-6 md:px-12 py-5 flex items-center justify-between">
+        <span
+          className={`font-serif text-[1.05rem] tracking-[0.22em] uppercase font-light transition-colors duration-500 ${
+            scrolled ? "text-gray-900" : "text-white"
+          }`}
+        >
+          Laanmets
+        </span>
+
+        <a
+          href="#contact"
+          className={`rounded-full px-6 py-2.5 text-[0.72rem] tracking-[0.18em] uppercase font-light transition-all duration-300 ${
+            scrolled
+              ? "bg-racing-green text-white hover:bg-racing-green-dark"
+              : "border border-white/70 text-white hover:bg-white hover:text-racing-green"
+          }`}
+        >
+          Contact
+        </a>
+      </div>
+    </header>
+  );
+}
+
+/* ================================================================
+   HERO
+================================================================ */
+
+function Hero() {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(
+      () => setCurrent((c) => (c + 1) % HERO_IMAGES.length),
+      5000
+    );
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <section className="relative h-screen w-full overflow-hidden">
+      {/* Slideshow */}
+      {HERO_IMAGES.map((src, i) => (
+        <div
+          key={src}
+          className="absolute inset-0 transition-opacity duration-[1400ms] ease-in-out"
+          style={{ opacity: i === current ? 1 : 0 }}
+        >
+          <Image
+            src={src}
+            alt="Real estate"
+            fill
+            className="object-cover"
+            priority={i === 0}
+            sizes="100vw"
+          />
+        </div>
+      ))}
+
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/38" />
+
+      {/* Content */}
+      <div className="relative z-10 flex h-full flex-col justify-center px-8 md:px-20 max-w-5xl">
+        <span className="mb-5 text-[0.68rem] tracking-[0.35em] uppercase text-white/60 font-light">
+          Real Estate · Tallinn
+        </span>
+
+        <h1 className="font-serif text-[3.4rem] md:text-[5.5rem] leading-[1.04] font-light text-white mb-7">
+          Your home,
+          <br />
+          <em>your story.</em>
+          <br />
+          I&apos;ll find it.
+        </h1>
+
+        <p className="mb-10 max-w-md text-white/65 font-light leading-relaxed text-[1.05rem]">
+          Transparent, personal and results-driven real estate brokerage in
+          Tallinn and beyond.
+        </p>
+
+        <a
+          href="#contact"
+          className="self-start rounded-full bg-racing-green px-9 py-4 text-[0.72rem] tracking-[0.18em] uppercase text-white font-light hover:bg-racing-green-dark transition-all duration-300 hover:scale-[1.03]"
+        >
+          Contact me
+        </a>
+      </div>
+
+      {/* Scroll cue */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40">
+        <span className="text-[0.6rem] tracking-[0.3em] uppercase">Scroll</span>
+        <div className="h-10 w-px bg-white/25 animate-pulse" />
+      </div>
+
+      {/* Slide dots */}
+      <div className="absolute bottom-10 right-10 flex gap-2">
+        {HERO_IMAGES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            className={`rounded-full transition-all duration-300 ${
+              i === current
+                ? "w-6 h-1.5 bg-white"
+                : "w-1.5 h-1.5 bg-white/40 hover:bg-white/70"
+            }`}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ================================================================
+   ABOUT
+================================================================ */
+
+function About() {
+  const { ref, visible } = useFadeIn(0.15);
+
+  return (
+    <section id="about" className="py-28 md:py-36">
+      <div
+        ref={ref}
+        className={`mx-auto max-w-7xl px-6 md:px-16 grid md:grid-cols-2 gap-14 md:gap-20 items-center transition-all duration-1000 ${
+          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
+        {/* Image – left */}
+        <div className="relative aspect-[4/5] rounded-[1.75rem] overflow-hidden shadow-xl">
+          <Image
+            src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=900&q=85"
+            alt="Real estate consultation"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        </div>
+
+        {/* Text – right */}
+        <div className="flex flex-col justify-center">
+          <span className="mb-4 text-[0.68rem] tracking-[0.32em] uppercase text-racing-green font-medium">
+            About me
+          </span>
+          <h2 className="font-serif text-[2.6rem] md:text-[3.4rem] font-light text-gray-900 leading-[1.08] mb-8">
+            Built on trust,
+            <br />
+            driven by results.
+          </h2>
+          <p className="text-gray-500 text-[1.02rem] leading-[1.85] font-light mb-5">
+            For me, the most important things in brokerage work are trust,
+            transparent communication and achieving the client&apos;s goals. I
+            help both buyers and sellers throughout the entire process, from the
+            first consultation to the successful completion of the transaction.
+          </p>
+          <p className="text-gray-500 text-[1.02rem] leading-[1.85] font-light">
+            My strengths are a good understanding of the market, attention to
+            detail and a personal approach to each client. My goal is to make
+            the real estate transaction as smooth and stress-free as possible.
+          </p>
+
+          {/* Stats */}
+          <div className="mt-12 grid grid-cols-3 gap-6 border-t border-gray-100 pt-10">
+            {[
+              ["8+", "Years active"],
+              ["120+", "Transactions"],
+              ["98%", "Satisfied clients"],
+            ].map(([n, l]) => (
+              <div key={l}>
+                <div className="font-serif text-3xl text-racing-green font-light">
+                  {n}
+                </div>
+                <div className="mt-1 text-[0.68rem] tracking-[0.18em] uppercase text-gray-400">
+                  {l}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ================================================================
+   SERVICES
+================================================================ */
+
+function Services() {
+  const { ref, visible } = useFadeIn(0.1);
+  const [open, setOpen] = useState<number | null>(0);
+
+  return (
+    <section className="py-28 md:py-36 bg-[#f7f7f5]">
+      <div
+        ref={ref}
+        className={`mx-auto max-w-7xl px-6 md:px-16 grid md:grid-cols-2 gap-14 md:gap-20 items-start transition-all duration-1000 ${
+          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
+        {/* Accordion – left */}
+        <div>
+          <span className="mb-4 text-[0.68rem] tracking-[0.32em] uppercase text-racing-green font-medium block">
+            Services
+          </span>
+          <h2 className="font-serif text-[2.6rem] md:text-[3.4rem] font-light text-gray-900 leading-[1.08] mb-10">
+            How I can
+            <br />
+            help you.
+          </h2>
+
+          <div className="border-t border-gray-200">
+            {SERVICES.map((s, i) => (
+              <div key={i} className="border-b border-gray-200">
+                <button
+                  onClick={() => setOpen(open === i ? null : i)}
+                  className="flex w-full items-center justify-between py-5 text-left group"
+                >
+                  <span
+                    className={`font-light text-[1.05rem] transition-colors duration-200 ${
+                      open === i
+                        ? "text-racing-green"
+                        : "text-gray-800 group-hover:text-racing-green"
+                    }`}
+                  >
+                    {s.title}
+                  </span>
+                  <span
+                    className={`ml-4 flex-shrink-0 text-[1.4rem] font-thin leading-none transition-all duration-300 ${
+                      open === i ? "rotate-45 text-racing-green" : "text-gray-300"
+                    }`}
+                  >
+                    +
+                  </span>
+                </button>
+
+                <div
+                  className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                    open === i ? "max-h-48 pb-6" : "max-h-0"
+                  }`}
+                >
+                  <p className="text-gray-500 font-light leading-[1.85] text-[0.93rem]">
+                    {s.body}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Image – right, sticky */}
+        <div className="md:sticky md:top-28">
+          <div className="relative aspect-[4/5] rounded-[1.75rem] overflow-hidden shadow-xl">
+            <Image
+              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=85"
+              alt="Property"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ================================================================
+   TESTIMONIALS
+================================================================ */
+
+function StarRow() {
+  return (
+    <div className="flex gap-0.5">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <svg key={i} className="w-3.5 h-3.5 fill-racing-green" viewBox="0 0 20 20">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
+      ))}
+    </div>
+  );
+}
+
+function Testimonials() {
+  const { ref, visible } = useFadeIn(0.1);
+  const doubled = [...TESTIMONIALS, ...TESTIMONIALS];
+
+  return (
+    <section className="py-28 md:py-36 bg-white overflow-hidden">
+      <div
+        ref={ref}
+        className={`mx-auto max-w-7xl px-6 md:px-16 grid md:grid-cols-2 gap-14 md:gap-20 items-start transition-all duration-1000 ${
+          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
+        {/* Left – sticky title */}
+        <div className="md:sticky md:top-28">
+          <span className="mb-4 text-[0.68rem] tracking-[0.32em] uppercase text-racing-green font-medium block">
+            Testimonials
+          </span>
+          <h2 className="font-serif text-[2.6rem] md:text-[3.4rem] font-light text-gray-900 leading-[1.08] mb-6">
+            Client
+            <br />
+            Feedback
+          </h2>
+          <p className="text-gray-400 font-light leading-relaxed text-[0.95rem] max-w-xs">
+            What people say about working together.
+          </p>
+
+          <div className="mt-12 flex items-end gap-4">
+            <span className="font-serif text-[3.4rem] text-racing-green font-light leading-none">
+              5.0
+            </span>
+            <div className="pb-2">
+              <StarRow />
+              <div className="mt-1.5 text-[0.65rem] tracking-[0.2em] uppercase text-gray-400">
+                Average rating
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right – infinite scroll column */}
+        <div className="relative h-[540px] overflow-hidden">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-white to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent z-10" />
+
+          <div className="animate-scroll-up">
+            {doubled.map((t, i) => (
+              <div
+                key={i}
+                className="mb-4 rounded-[1.25rem] border border-gray-100 bg-[#f7f7f5] p-6"
+              >
+                <StarRow />
+                <p className="mt-3 mb-4 text-gray-600 font-light leading-[1.85] text-[0.92rem]">
+                  &ldquo;{t.text}&rdquo;
+                </p>
+                <div>
+                  <div className="text-[0.88rem] font-medium text-gray-900">
+                    {t.name}
+                  </div>
+                  <div className="text-[0.68rem] tracking-[0.18em] uppercase text-gray-400">
+                    {t.role}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ================================================================
+   SALES PROCESS
+================================================================ */
+
+function SalesProcess() {
+  const titleRef = useRef<HTMLDivElement>(null);
+  const [titleVisible, setTitleVisible] = useState(false);
+
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [stepsVisible, setStepsVisible] = useState<boolean[]>(
+    STEPS.map(() => false)
+  );
+
+  useEffect(() => {
+    const el = titleRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) setTitleVisible(true);
+      },
+      { threshold: 0.3 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const observers = stepRefs.current.map((el, i) => {
+      if (!el) return null;
+      const obs = new IntersectionObserver(
+        ([e]) => {
+          if (e.isIntersecting) {
+            setTimeout(() => {
+              setStepsVisible((prev) => {
+                const next = [...prev];
+                next[i] = true;
+                return next;
+              });
+            }, i * 120);
+          }
+        },
+        { threshold: 0.2 }
+      );
+      obs.observe(el);
+      return obs;
+    });
+    return () => observers.forEach((obs) => obs?.disconnect());
+  }, []);
+
+  return (
+    <section className="py-28 md:py-40 bg-racing-green overflow-hidden">
+      <div className="mx-auto max-w-6xl px-6 md:px-16">
+        {/* Section title */}
+        <div
+          ref={titleRef}
+          className={`mb-20 text-center transition-all duration-1000 ${
+            titleVisible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-8"
+          }`}
+        >
+          <span className="mb-4 text-[0.68rem] tracking-[0.35em] uppercase text-white/40 font-light block">
+            How it works
+          </span>
+          <h2 className="font-serif text-[2.8rem] md:text-[5rem] font-light text-white leading-[1.04]">
+            Sales Process
+          </h2>
+        </div>
+
+        {/* Steps */}
+        <div className="relative">
+          {/* Vertical connector line */}
+          <div className="absolute left-[2.35rem] md:left-1/2 top-0 bottom-0 w-px bg-white/10 md:-translate-x-px" />
+
+          <div className="space-y-10">
+            {STEPS.map((step, i) => {
+              const isRight = i % 2 !== 0;
+              return (
+                <div
+                  key={i}
+                  ref={(el) => {
+                    stepRefs.current[i] = el;
+                  }}
+                  className={`step-card relative flex items-start gap-6 md:gap-10 ${
+                    isRight ? "md:flex-row-reverse" : "md:flex-row"
+                  } ${stepsVisible[i] ? "step-visible" : ""}`}
+                >
+                  {/* Spacer (desktop, fills opposite side) */}
+                  <div className="hidden md:block flex-1" />
+
+                  {/* Number circle */}
+                  <div className="relative z-10 flex-shrink-0 w-[4.7rem] h-[4.7rem] rounded-full border border-white/20 bg-white/5 flex items-center justify-center">
+                    <span className="font-serif text-white/50 text-[1.1rem] font-light">
+                      {step.num}
+                    </span>
+                  </div>
+
+                  {/* Card */}
+                  <div
+                    className={`flex-1 rounded-[1.4rem] border border-white/10 bg-white/5 p-7 hover:bg-white/[0.08] transition-colors duration-300 ${
+                      isRight ? "md:text-right" : ""
+                    }`}
+                  >
+                    <h3 className="font-serif text-white text-[1.25rem] font-light leading-snug mb-3">
+                      {step.title}
+                    </h3>
+                    <p className="text-white/55 font-light leading-[1.85] text-[0.92rem]">
+                      {step.body}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ================================================================
+   SOCIAL / VIDEOS
+================================================================ */
+
+function Social() {
+  const { ref, visible } = useFadeIn(0.1);
+
+  return (
+    <section className="py-28 md:py-36 bg-[#f7f7f5]">
+      <div
+        ref={ref}
+        className={`mx-auto max-w-7xl px-6 md:px-16 grid md:grid-cols-2 gap-14 md:gap-20 items-center transition-all duration-1000 ${
+          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
+        {/* Left */}
+        <div>
+          <span className="mb-4 text-[0.68rem] tracking-[0.32em] uppercase text-racing-green font-medium block">
+            Social media
+          </span>
+          <h2 className="font-serif text-[2.6rem] md:text-[3.4rem] font-light text-gray-900 leading-[1.08] mb-6">
+            Follow me on
+            <br />
+            social media.
+          </h2>
+          <p className="text-gray-400 font-light leading-relaxed text-[0.95rem] max-w-xs mb-10">
+            Stay updated with the latest listings, market insights and
+            behind-the-scenes of real estate in Tallinn.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {["Instagram", "TikTok", "LinkedIn"].map((p) => (
+              <a
+                key={p}
+                href="#"
+                className="rounded-full border border-racing-green px-6 py-2.5 text-[0.72rem] tracking-[0.16em] uppercase text-racing-green font-light hover:bg-racing-green hover:text-white transition-all duration-300"
+              >
+                {p}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Right – video placeholders */}
+        <div className="grid grid-cols-3 gap-3">
+          {VIDEO_COVERS.map((src, i) => (
+            <div
+              key={i}
+              className="group relative aspect-[9/16] cursor-pointer overflow-hidden rounded-[1.1rem]"
+            >
+              <Image
+                src={src}
+                alt="Video"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 768px) 33vw, 16vw"
+              />
+              <div className="absolute inset-0 bg-black/28 transition-colors duration-300 group-hover:bg-black/18" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/50 bg-white/15 backdrop-blur-sm transition-transform duration-300 group-hover:scale-110">
+                  <svg
+                    className="ml-0.5 h-4 w-4 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ================================================================
+   CONTACT
+================================================================ */
+
+function Contact() {
+  const { ref, visible } = useFadeIn(0.15);
+  const [sent, setSent] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSent(true);
+  };
+
+  return (
+    <section id="contact" className="py-28 md:py-36 bg-white">
+      <div
+        ref={ref}
+        className={`mx-auto max-w-2xl px-6 transition-all duration-1000 ${
+          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
+        <div className="text-center mb-14">
+          <span className="mb-4 text-[0.68rem] tracking-[0.32em] uppercase text-racing-green font-medium block">
+            Get in touch
+          </span>
+          <h2 className="font-serif text-[2.8rem] md:text-[4rem] font-light text-gray-900 leading-[1.08] mb-5">
+            Let&apos;s talk about
+            <br />
+            your property.
+          </h2>
+          <p className="text-gray-400 font-light leading-relaxed text-[0.95rem]">
+            Whether you&apos;re buying, selling or renting — I&apos;m here to
+            help you make the right move.
+          </p>
+        </div>
+
+        {sent ? (
+          <div className="rounded-[1.4rem] bg-racing-green-tint border border-racing-green/20 p-10 text-center">
+            <div className="font-serif text-[2rem] text-racing-green font-light mb-2">
+              Thank you.
+            </div>
+            <p className="text-gray-500 font-light text-sm">
+              Your message has been received. I&apos;ll be in touch shortly.
+            </p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid md:grid-cols-2 gap-4">
+              <input
+                required
+                type="text"
+                placeholder="Your name"
+                className="w-full rounded-2xl border border-gray-200 px-5 py-4 text-[0.93rem] font-light placeholder:text-gray-400 focus:outline-none focus:border-racing-green transition-colors duration-200"
+              />
+              <input
+                required
+                type="email"
+                placeholder="Email address"
+                className="w-full rounded-2xl border border-gray-200 px-5 py-4 text-[0.93rem] font-light placeholder:text-gray-400 focus:outline-none focus:border-racing-green transition-colors duration-200"
+              />
+            </div>
+            <input
+              type="tel"
+              placeholder="Phone number (optional)"
+              className="w-full rounded-2xl border border-gray-200 px-5 py-4 text-[0.93rem] font-light placeholder:text-gray-400 focus:outline-none focus:border-racing-green transition-colors duration-200"
+            />
+            <textarea
+              required
+              rows={5}
+              placeholder="Tell me about your real estate needs…"
+              className="w-full resize-none rounded-2xl border border-gray-200 px-5 py-4 text-[0.93rem] font-light placeholder:text-gray-400 focus:outline-none focus:border-racing-green transition-colors duration-200"
+            />
+            <button
+              type="submit"
+              className="w-full rounded-2xl bg-racing-green py-4 text-[0.72rem] tracking-[0.18em] uppercase text-white font-light hover:bg-racing-green-dark transition-all duration-300"
+            >
+              Send message
+            </button>
+          </form>
+        )}
+      </div>
+    </section>
+  );
+}
+
+/* ================================================================
+   FOOTER
+================================================================ */
+
+function Footer() {
+  return (
+    <footer className="border-t border-gray-100 py-8 bg-white">
+      <div className="mx-auto max-w-7xl px-6 md:px-16 flex flex-col md:flex-row items-center justify-between gap-3">
+        <span className="font-serif text-[0.9rem] tracking-[0.22em] uppercase text-gray-300 font-light">
+          Laanmets
+        </span>
+        <span className="text-[0.78rem] text-gray-300 font-light">
+          © {new Date().getFullYear()} · All rights reserved
+        </span>
+      </div>
+    </footer>
+  );
+}
+
+/* ================================================================
+   PAGE
+================================================================ */
+
+export default function Page() {
+  return (
+    <>
+      <Navbar />
+      <Hero />
+      <About />
+      <Services />
+      <Testimonials />
+      <SalesProcess />
+      <Social />
+      <Contact />
+      <Footer />
+    </>
+  );
+}
