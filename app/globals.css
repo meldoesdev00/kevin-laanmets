@@ -72,6 +72,12 @@
   transform: translateY(0);
 }
 
+/* ─── Fade-up entrance ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 /* ─── Base ─── */
 html {
   scroll-behavior: smooth;

@@ -22,7 +22,7 @@ const SERVICES = [
   },
   {
     title: "Kinnisvara ost",
-    body: "Toetan oma kliente oluliste otsuste ja läbirääkimiste juures. Aitan hinnata riske, hoida selget pilti ning jõuda tehinguni ilma emotsionaalsete vigadeta.",
+    body: "Toetan oma kliente oluliste otsuste ja läbirääkimiste juures. Aitan hinnata riske, hoida selget pilti ning jõuda eduka tehinguni.",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style={{ width: "100%", height: "100%", fill: "currentColor" }}>
         <path d="M224,48H32A16,16,0,0,0,16,64V88a16,16,0,0,0,16,16v88a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V104a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48ZM208,192H48V104H208ZM224,88H32V64H224V88ZM96,136a8,8,0,0,1,8-8h48a8,8,0,0,1,0,16H104A8,8,0,0,1,96,136Z" />
@@ -31,7 +31,7 @@ const SERVICES = [
   },
   {
     title: "Kinnisvara üürimine",
-    body: "Aitan kinnisvara üürileandmisel leida sobiva üürniku ja toimiva lahenduse. Juhin protsessi nii, et see oleks korrektne, selge ja ajaliselt tõhus.",
+    body: "Aitan kinnisvara üürileandmisel leida Sulle sobiva üürniku. Juhin kogu protsessi nii, et see oleks korrektne, selge ja ajaliselt tõhus.",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style={{ width: "100%", height: "100%", fill: "currentColor" }}>
         <path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Zm-68-56a12,12,0,1,1-12-12A12,12,0,0,1,140,152Z" />
@@ -40,7 +40,7 @@ const SERVICES = [
   },
   {
     title: "Koostöö partneritega",
-    body: "I work with a trusted network of partners — from legal advisors and banks to interior designers — to make sure your transaction goes smoothly.",
+    body: "Teen koostööd usaldusväärsete koostööpartneritega alates pankadest kuni sisekujundajateni, et tagada tehingu sujuv kulg.",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style={{ width: "100%", height: "100%", fill: "currentColor" }}>
         <path d="M27.2,126.4a8,8,0,0,0,11.2-1.6,52,52,0,0,1,83.2,0,8,8,0,0,0,11.2,1.59,7.73,7.73,0,0,0,1.59-1.59h0a52,52,0,0,1,83.2,0,8,8,0,0,0,12.8-9.61A67.85,67.85,0,0,0,203,93.51a40,40,0,1,0-53.94,0,67.27,67.27,0,0,0-21,14.31,67.27,67.27,0,0,0-21-14.31,40,40,0,1,0-53.94,0A67.88,67.88,0,0,0,25.6,115.2,8,8,0,0,0,27.2,126.4ZM176,40a24,24,0,1,1-24,24A24,24,0,0,1,176,40ZM80,40A24,24,0,1,1,56,64,24,24,0,0,1,80,40ZM203,197.51a40,40,0,1,0-53.94,0,67.27,67.27,0,0,0-21,14.31,67.27,67.27,0,0,0-21-14.31,40,40,0,1,0-53.94,0A67.88,67.88,0,0,0,25.6,219.2a8,8,0,1,0,12.8,9.6,52,52,0,0,1,83.2,0,8,8,0,0,0,11.2,1.59,7.73,7.73,0,0,0,1.59-1.59h0a52,52,0,0,1,83.2,0,8,8,0,0,0,12.8-9.61A67.85,67.85,0,0,0,203,197.51ZM80,144a24,24,0,1,1-24,24A24,24,0,0,1,80,144Zm96,0a24,24,0,1,1-24,24A24,24,0,0,1,176,144Z" />
@@ -128,210 +128,118 @@ function useFadeIn(threshold = 0.1) {
   return { ref, visible };
 }
 
-/* ─── BADGE ──────────────────────────────────────────────── */
+/* ─── NAVBAR ─────────────────────────────────────────────── */
 
-
-function BadgeDark({ children }: { children: React.ReactNode }) {
+function Navbar() {
   return (
-    <span className="inline-flex items-center rounded-full border border-white/20 text-white/50 px-3.5 py-1 text-[0.6rem] font-semibold tracking-[0.2em] uppercase">
-      {children}
-    </span>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-stone-100">
+      <div className="max-w-7xl mx-auto px-6 md:px-14 h-16 flex items-center">
+        <Image
+          src="/kevin_logo.png"
+          alt="Kevin Laanmets"
+          width={140}
+          height={44}
+          className="h-9 w-auto object-contain"
+        />
+      </div>
+    </nav>
   );
 }
 
 /* ─── HERO ───────────────────────────────────────────────── */
 
-
 function Hero() {
-  const gridReels = REELS.slice(0, 8);
-  const [mobileIdx, setMobileIdx] = useState(0);
-  const [fading, setFading] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setFading(true);
-      setTimeout(() => {
-        setMobileIdx((i) => (i + 1) % gridReels.length);
-        setFading(false);
-      }, 600);
-    }, 12000);
-    return () => clearInterval(interval);
-  }, [gridReels.length]);
-
   return (
-    <>
-    {/* ── MOBILE hero — full-screen video + text overlay ── */}
-    <section className="md:hidden relative h-screen overflow-hidden">
-      {/* Video background */}
-      <video
-        key={mobileIdx}
-        src={gridReels[mobileIdx].src}
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[600ms]"
-        style={{ opacity: fading ? 0 : 1 }}
-      />
-      {/* Subtle blur layer */}
-      <div className="absolute inset-0 backdrop-blur-[2px]" />
-      {/* Gradient overlay — light at top, dark at bottom */}
-      <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.75) 100%)" }} />
-
-      {/* Text pinned to bottom */}
-      <div className="absolute bottom-14 left-0 right-0 px-6">
-        <h1
-          className="font-display font-bold text-white leading-[0.93] mb-5"
-          style={{ fontSize: "clamp(3.2rem, 11vw, 4.5rem)", letterSpacing: "-0.03em" }}
-        >
-          Müü,<br />
-          osta või üüri <br />
-          koos minuga
-        </h1>
-        <p className="text-white/70 text-[0.97rem] leading-[1.8] mb-5 max-w-[300px]">
-          Aitan nii ostjaid kui müüjaid kogu protsessi vältel alates esimesest konsultatsioonist kuni eduka tehingu lõpule viimiseni.
-        </p>
-        <div className="flex flex-wrap gap-3">
-          <a
-            href="https://www.kv.ee/broker/kevinkristoferlaanmets"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 rounded-full bg-accent text-white px-8 py-3.5 text-[0.75rem] font-semibold tracking-[0.14em] uppercase hover:opacity-90 transition-all duration-300"
-          >
-            Pakutavad objektid
-            <svg className="w-3.5 h-3.5 -rotate-45" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2.5 rounded-full border border-white text-white px-8 py-3.5 text-[0.75rem] font-semibold tracking-[0.14em] uppercase hover:bg-white/10 transition-all duration-300"
-          >
-            Broneeri tasuta konsultatsioon
-          </a>
-        </div>
-
-        {/* Social + Kodumaa */}
-        <div className="flex items-center gap-3 mt-5">
-          <a href="https://www.instagram.com/kevin.laanmets" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-            className="w-9 h-9 rounded-full border border-white/30 flex items-center justify-center text-white/70 hover:text-white hover:border-white/60 transition-all duration-200">
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-            </svg>
-          </a>
-          <a href="https://www.facebook.com/kevin.laanmets" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
-            className="w-9 h-9 rounded-full border border-white/30 flex items-center justify-center text-white/70 hover:text-white hover:border-white/60 transition-all duration-200">
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-            </svg>
-          </a>
-          <div className="h-5 w-px bg-white/20 mx-1" />
-          <img
-            src="https://cdn.prod.website-files.com/6942937ef5e1b2e432918a2f/6943bca40732694841061d80_logo.svg"
-            alt="Kodumaa"
-            className="h-8 brightness-0 invert opacity-60"
-          />
-        </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 right-6 flex flex-col items-center gap-1.5">
-        <div className="animate-bounce-indicator">
-          <svg className="w-5 h-5 text-white/50" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
-        </div>
-      </div>
-    </section>
-
-    {/* ── DESKTOP hero ── */}
-    <section className="hidden md:flex relative h-screen bg-white items-center overflow-hidden">
-      <div className="mx-auto max-w-7xl px-14 w-full h-full flex items-center justify-center">
-        <div className="grid grid-cols-[1fr_3fr] gap-24 items-center w-full">
+    <section className="bg-white pt-16">
+      <div className="max-w-7xl mx-auto px-6 md:px-14 w-full py-12 md:py-20">
+        <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-10 lg:gap-16 lg:items-center">
 
           {/* Left – text */}
           <div>
             <h1
-              className="font-display font-bold text-dark leading-[0.93] mb-8"
-              style={{ fontSize: "clamp(2.6rem, 5.5vw, 7rem)", letterSpacing: "-0.03em" }}
+              className="font-display font-extrabold leading-[1.0] tracking-tight mb-6 text-[#161616]"
+              style={{ fontSize: "clamp(2.5rem,6.5vw,5.5rem)", opacity: 0, animation: "fadeUp .65s .2s ease forwards" }}
             >
-            Müü või<br />
-            üüri oma <br />
-            kinnisvara
+              Sinu kinnisvara.<br />
+              <span style={{ color: "#B8775A" }}>Minu</span> prioriteet.
             </h1>
-            <p className="text-muted leading-[1.85] text-[0.95rem] mb-8 max-w-[320px]">
-              Aitan nii ostjaid kui müüjaid kogu protsessi vältel alates esimesest konsultatsioonist kuni eduka tehingu lõpule viimiseni.
+            <p
+              className="text-stone-500 text-base md:text-lg leading-relaxed max-w-lg mb-8 font-normal"
+              style={{ opacity: 0, animation: "fadeUp .65s .35s ease forwards" }}
+            >
+              Läbipaistev, aus ja detailidele orienteeritud maakler, kes paneb sinu eesmärgid alati esikohale.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-4" style={{ opacity: 0, animation: "fadeUp .65s .45s ease forwards" }}>
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#161616] text-white font-semibold text-sm hover:bg-[#B8775A] transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md"
+              >
+                Tasuta kinnisvara hinnastamine
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+              </a>
               <a
                 href="https://www.kv.ee/broker/kevinkristoferlaanmets"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 rounded-full bg-accent text-white px-8 py-3.5 text-[0.7rem] font-semibold tracking-[0.14em] uppercase hover:opacity-90 transition-opacity duration-300"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-full border-2 border-stone-200 text-stone-600 font-semibold text-sm hover:border-stone-300 hover:text-[#161616] transition-all duration-200"
               >
-                Pakutavad objektid
-                <svg className="w-3.5 h-3.5 -rotate-45" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </a>
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2.5 rounded-full border border-accent text-accent px-8 py-3.5 text-[0.7rem] font-semibold tracking-[0.14em] uppercase hover:bg-accent/10 transition-all duration-300"
-              >
-                Broneeri tasuta konsultatsioon
+                Suundu minu portfelli
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
               </a>
             </div>
+          </div>
 
-            {/* Social + Kodumaa */}
-            <div className="flex items-center gap-3 mt-8">
-              <a href="https://www.instagram.com/kevin.laanmets" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-                className="w-9 h-9 rounded-full border border-black/10 flex items-center justify-center text-dark/50 hover:text-dark hover:border-black/30 transition-all duration-200">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                </svg>
-              </a>
-              <a href="https://www.facebook.com/kevin.laanmets" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
-                className="w-9 h-9 rounded-full border border-black/10 flex items-center justify-center text-dark/50 hover:text-dark hover:border-black/30 transition-all duration-200">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                </svg>
-              </a>
-              <div className="h-5 w-px bg-black/10 mx-1" />
-              <img
-                src="https://cdn.prod.website-files.com/6942937ef5e1b2e432918a2f/6943bca40732694841061d80_logo.svg"
-                alt="Kodumaa"
-                className="h-8 opacity-40 hover:opacity-70 transition-opacity duration-200"
+          {/* Right – photo, no stat bubbles */}
+          <div style={{ opacity: 0, animation: "fadeUp .7s .3s ease forwards" }}>
+            <div
+              className="relative rounded-3xl overflow-hidden bg-stone-100 w-full max-w-md mx-auto lg:ml-auto lg:mr-0 border border-stone-200"
+              style={{ aspectRatio: "3/4" }}
+            >
+              <Image
+                src="/laanmets.jpg"
+                alt="Kevin Laanmets"
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 1024px) 90vw, 44vw"
               />
+              <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-stone-100/50 to-transparent" />
             </div>
           </div>
 
-          {/* Right – 4×2 reel grid */}
-          <div className="relative" style={{ height: "72vh" }}>
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-6 z-10 bg-gradient-to-b from-white to-transparent" />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-6 z-10 bg-gradient-to-t from-white to-transparent" />
-            <div className="grid grid-cols-4 grid-rows-2 gap-2 h-full">
-              {gridReels.map((item, i) => (
-                <div key={i} className="relative overflow-hidden rounded-xl bg-dark" style={{ minHeight: 0 }}>
-                  <video src={item.src} autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" />
-                </div>
-              ))}
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5">
-        <span className="text-[0.55rem] font-semibold tracking-[0.3em] uppercase text-muted">Scroll</span>
-        <div className="animate-bounce-indicator">
-          <svg className="w-4 h-4 text-muted" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
         </div>
       </div>
     </section>
-    </>
+  );
+}
+
+/* ─── REELS STRIP ────────────────────────────────────────── */
+
+function ReelsStrip() {
+  const videos = REELS.slice(0, 8);
+
+  return (
+    <section className="bg-stone-50 border-y border-stone-200 py-14 md:py-20">
+      <div className="max-w-7xl mx-auto px-6 md:px-14">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {videos.map((r, i) => (
+            <div
+              key={i}
+              className="rounded-2xl overflow-hidden bg-stone-900"
+              style={{ aspectRatio: "9/16" }}
+            >
+              <video
+                src={r.src}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-full object-cover pointer-events-none"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -376,12 +284,12 @@ function About() {
             </h2>
             <div className="space-y-5 text-muted leading-[1.85] text-[0.96rem]">
               <p>
-                Minu jaoks on maakleritöös kõige olulisemad asjad usaldus, läbipaistev suhtlus ja kliendi eesmärkide saavutamine. Aitan nii ostjaid kui müüjaid kogu protsessi vältel alates esimesest konsultatsioonist kuni eduka tehingu lõpule viimiseni. <br /><br /> Minu tugevusteks on hea turu tunnetus, detailidele tähelepanu pööramine ning personaalne lähenemine igale kliendile. Minu eesmärk on muuta kinnisvaratehing võimalikult sujuvaks ja stressivabaks.
+                Minu jaoks on maakleritöös kõige olulisemad asjad usaldus, läbipaistev suhtlus ja kliendi eesmärkide saavutamine. Olen maakler, kes peab oluliseks selget suhtlust, ausust ja lahendusi, mis viivad Sind soovitud tulemuseni.
               </p>
             </div>
 
             <div className="mt-10 pt-10 border-t border-line grid grid-cols-3 gap-8">
-              {[["20+", "Tehinguid"], ["98%", "Klientide rahulolu"], ["60", "Päeva keskmine tehinguperiood"]].map(([n, l]) => (
+              {[["100+", "Rahulolevat klienti"], ["68", "Päeva keskmine tehinguperiood"], ["5+", "Aastat müügikogemust"]].map(([n, l]) => (
                 <div key={l}>
                   <div className="font-display font-bold text-[2.8rem] leading-none text-dark">{n}</div>
                   <div className="mt-2 text-[0.62rem] font-semibold tracking-[0.18em] uppercase text-muted">{l}</div>
@@ -419,8 +327,8 @@ function Services() {
             <ul className="space-y-2.5 text-muted text-[0.95rem] leading-[1.8] mb-8">
               {[
                 "Tegutsen põhiliselt Harju- ja Raplamaal, kuid olen valmis Sind aitama ka üle Eesti ja välismaal.",
-                "Keskmine müügiperiood ca 60 päeva — olen ka 5 päevaga kuulutuse panekust broneerimiseni jõudnud.",
-                "Igale kodule teen personaalse müügistrateegia.",
+                "Keskmine müügiperiood alla 70 päeva – olen ka 5 päevaga kuulutuse panekust broneerimiseni jõudnud.",
+                "Koostan personaalse müügistrateegia just Sinu kodule.",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-2.5">
                   <span className="mt-[0.45em] w-1.5 h-1.5 rounded-full bg-dark/25 flex-shrink-0" />
@@ -539,14 +447,14 @@ function Listings() {
               Portfellis olevad objektid
             </h2>
             <p className="text-muted text-[0.95rem] leading-[1.8] mt-8 max-w-[380px]">
-              From apartments to family homes and land — find my current listings across Estonia, all with full support from first viewing to signed contract.
+              Korterid, majad ja krundid - <br />vaata hetkel minu portfellis olevat kinnisvara.
             </p>
           </div>
           <a
             href="https://www.kv.ee/broker/kevinkristoferlaanmets"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-shrink-0 self-start sm:self-end inline-flex items-center gap-2 rounded-full border border-accent bg-transparent text-accent px-6 py-3 text-[0.7rem] font-semibold tracking-[0.12em] uppercase hover:bg-accent hover:text-white transition-all duration-300"
+            className="flex-shrink-0 self-start sm:self-end inline-flex items-center gap-2 rounded-full border border-accent bg-accent text-white px-6 py-3 text-[0.7rem] font-semibold tracking-[0.12em] uppercase hover:bg-accent hover:text-white transition-all duration-300"
           >
             Vaata kõiki
             <svg className="w-3.5 h-3.5 -rotate-45" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -879,7 +787,9 @@ function Contact() {
 export default function Page() {
   return (
     <>
+      <Navbar />
       <Hero />
+      <ReelsStrip />
       <About />
       <Services />
       <Listings />
