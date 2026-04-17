@@ -128,48 +128,39 @@ function useFadeIn(threshold = 0.1) {
   return { ref, visible };
 }
 
-/* ─── NAVBAR ─────────────────────────────────────────────── */
-
-function Navbar() {
-  return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-stone-100">
-      <div className="max-w-7xl mx-auto px-6 md:px-14 h-16 flex items-center">
-        <Image
-          src="/kevin_logo.png"
-          alt="Kevin Laanmets"
-          width={140}
-          height={44}
-          className="h-9 w-auto object-contain"
-        />
-      </div>
-    </nav>
-  );
-}
-
 /* ─── HERO ───────────────────────────────────────────────── */
 
 function Hero() {
   return (
-    <section className="bg-white pt-16">
-      <div className="max-w-7xl mx-auto px-6 md:px-14 w-full py-12 md:py-20">
+    <section className="bg-white">
+      <div className="max-w-7xl mx-auto px-6 md:px-14 w-full pt-10 pb-12 md:pt-14 md:pb-20">
+
+        {/* Logo at top */}
+        <div className="mb-10 md:mb-14">
+          <Image
+            src="/kevin_logo.png"
+            alt="Kevin Laanmets"
+            width={140}
+            height={44}
+            className="h-9 w-auto object-contain"
+          />
+        </div>
+
         <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-10 lg:gap-16 lg:items-center">
 
           {/* Left – text */}
           <div>
             <h1
               className="font-display font-extrabold leading-[1.0] tracking-tight mb-6 text-[#161616]"
-              style={{ fontSize: "clamp(2.5rem,6.5vw,5.5rem)", opacity: 0, animation: "fadeUp .65s .2s ease forwards" }}
+              style={{ fontSize: "clamp(2.5rem,6.5vw,5.5rem)" }}
             >
               Sinu kinnisvara.<br />
               <span style={{ color: "#B8775A" }}>Minu</span> prioriteet.
             </h1>
-            <p
-              className="text-stone-500 text-base md:text-lg leading-relaxed max-w-lg mb-8 font-normal"
-              style={{ opacity: 0, animation: "fadeUp .65s .35s ease forwards" }}
-            >
+            <p className="text-stone-500 text-base md:text-lg leading-relaxed max-w-lg mb-8 font-normal">
               Läbipaistev, aus ja detailidele orienteeritud maakler, kes paneb sinu eesmärgid alati esikohale.
             </p>
-            <div className="flex flex-wrap gap-4" style={{ opacity: 0, animation: "fadeUp .65s .45s ease forwards" }}>
+            <div className="flex flex-wrap gap-4">
               <a
                 href="#contact"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#161616] text-white font-semibold text-sm hover:bg-[#B8775A] transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md"
@@ -189,8 +180,8 @@ function Hero() {
             </div>
           </div>
 
-          {/* Right – photo, no stat bubbles */}
-          <div style={{ opacity: 0, animation: "fadeUp .7s .3s ease forwards" }}>
+          {/* Right – photo */}
+          <div>
             <div
               className="relative rounded-3xl overflow-hidden bg-stone-100 w-full max-w-md mx-auto lg:ml-auto lg:mr-0 border border-stone-200"
               style={{ aspectRatio: "3/4" }}
@@ -218,13 +209,13 @@ function ReelsStrip() {
   const videos = REELS.slice(0, 8);
 
   return (
-    <section className="bg-stone-50 border-y border-stone-200 py-14 md:py-20">
-      <div className="max-w-7xl mx-auto px-6 md:px-14">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <section className="bg-stone-50 border-y border-stone-200 py-10 md:py-14">
+      <div className="max-w-5xl mx-auto px-6 md:px-14">
+        <div className="grid grid-cols-4 gap-3">
           {videos.map((r, i) => (
             <div
               key={i}
-              className="rounded-2xl overflow-hidden bg-stone-900"
+              className="rounded-xl overflow-hidden bg-stone-900"
               style={{ aspectRatio: "9/16" }}
             >
               <video
@@ -787,7 +778,6 @@ function Contact() {
 export default function Page() {
   return (
     <>
-      <Navbar />
       <Hero />
       <ReelsStrip />
       <About />
