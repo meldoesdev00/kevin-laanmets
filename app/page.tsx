@@ -132,165 +132,240 @@ function useFadeIn(threshold = 0.1) {
 
 function Hero() {
   return (
-    <section className="bg-white">
-      <div className="max-w-7xl mx-auto px-6 md:px-14 w-full pt-10 pb-12 md:pt-14 md:pb-20">
+    <section className="bg-white min-h-screen flex flex-col">
 
-        {/* Logo at top */}
-        <div className="mb-10 md:mb-14">
-          <Image
-            src="/kevin_logo.png"
-            alt="Kevin Laanmets"
-            width={140}
-            height={44}
-            className="h-9 w-auto object-contain"
-          />
-        </div>
-
-        <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-10 lg:gap-16 lg:items-center">
-
-          {/* Left – text */}
-          <div>
-            <h1
-              className="font-display font-extrabold leading-[1.0] tracking-tight mb-6 text-[#161616]"
-              style={{ fontSize: "clamp(2.5rem,6.5vw,5.5rem)" }}
-            >
-              Sinu kinnisvara.<br />
-              <span style={{ color: "#B8775A" }}>Minu</span> prioriteet.
-            </h1>
-            <p className="text-stone-500 text-base md:text-lg leading-relaxed max-w-lg mb-8 font-normal">
-              Läbipaistev, aus ja detailidele orienteeritud maakler, kes paneb sinu eesmärgid alati esikohale.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#161616] text-white font-semibold text-sm hover:bg-[#B8775A] transition-all duration-300 hover:-translate-y-0.5 shadow-sm hover:shadow-md"
-              >
-                Tasuta kinnisvara hinnastamine
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
-              </a>
-              <a
-                href="https://www.kv.ee/broker/kevinkristoferlaanmets"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full border-2 border-stone-200 text-stone-600 font-semibold text-sm hover:border-stone-300 hover:text-[#161616] transition-all duration-200"
-              >
-                Suundu minu portfelli
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
-              </a>
-            </div>
-          </div>
-
-          {/* Right – photo */}
-          <div>
-            <div
-              className="relative rounded-3xl overflow-hidden bg-stone-100 w-full max-w-md mx-auto lg:ml-auto lg:mr-0 border border-stone-200"
-              style={{ aspectRatio: "3/4" }}
-            >
-              <Image
-                src="/laanmets.jpg"
-                alt="Kevin Laanmets"
-                fill
-                className="object-cover object-top"
-                sizes="(max-width: 1024px) 90vw, 44vw"
-              />
-              <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-stone-100/50 to-transparent" />
-            </div>
-          </div>
-
-        </div>
+      {/* ── Logo rida — navbar-positsioon, ainult desktop ── */}
+      <div className="hidden md:block max-w-7xl mx-auto px-6 w-full pt-8 pb-0" style={{ opacity: 0, animation: "fadeUp .5s .05s ease forwards" }}>
+        <Image
+          src="/kevin_logo.png"
+          alt="Kevin Laanmets"
+          width={270}
+          height={84}
+          className="h-[60px] w-auto object-contain"
+        />
       </div>
+
+      {/* ── Põhisisu — täidab ülejäänud ruumi, tsentreeritult ── */}
+      <div className="flex-1 flex items-center">
+        <div className="max-w-7xl mx-auto px-6 w-full py-10 md:py-14">
+          <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-12 lg:gap-20 lg:items-stretch">
+
+            {/* ── Tekst — flex col, sotsiaalid mt-auto → joonduvad foto alumise servaga ── */}
+            <div className="flex flex-col">
+
+              <h1
+                className="font-display font-bold text-dark leading-[0.93] mb-6 md:mb-8"
+                style={{ fontSize: "clamp(2.6rem, 6.5vw, 5.5rem)", letterSpacing: "-0.03em", opacity: 0, animation: "fadeUp .65s .2s ease forwards" }}
+              >
+                <span className="lg:hidden">Müü või üüri<br />oma kinnisvara</span>
+                <span className="hidden lg:inline">Müü või<br />üüri oma<br />kinnisvara</span>
+              </h1>
+
+              <p
+                className="text-muted leading-[1.85] text-[0.95rem] mb-8 md:mb-10 max-w-[360px]"
+                style={{ opacity: 0, animation: "fadeUp .65s .35s ease forwards" }}
+              >
+                Aitan nii ostjaid kui müüjaid kogu protsessi vältel alates esimesest konsultatsioonist kuni eduka tehingu lõpule viimiseni.
+              </p>
+
+              <div
+                className="flex flex-wrap gap-3"
+                style={{ opacity: 0, animation: "fadeUp .65s .45s ease forwards" }}
+              >
+                <a
+                  href="https://www.kv.ee/broker/kevinkristoferlaanmets"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 rounded-full bg-accent text-white px-8 py-3.5 text-[0.7rem] font-semibold tracking-[0.14em] uppercase hover:opacity-90 transition-opacity duration-300"
+                >
+                  Minu portfell
+                  <svg className="w-3.5 h-3.5 -rotate-45" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-2.5 rounded-full border border-accent text-accent px-8 py-3.5 text-[0.7rem] font-semibold tracking-[0.14em] uppercase hover:bg-accent/10 transition-all duration-300"
+                >
+                  Broneeri tasuta konsultatsioon
+                </a>
+              </div>
+
+              {/* Sotsiaalid — mt-auto surub need alla, joondudes foto alumise servaga */}
+              <div className="mt-auto pt-10 flex items-center gap-3" style={{ opacity: 0, animation: "fadeUp .65s .55s ease forwards" }}>
+                <a href="https://www.instagram.com/kevin.laanmets" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+                  className="w-9 h-9 rounded-full border border-black/10 flex items-center justify-center text-dark/50 hover:text-dark hover:border-black/30 transition-all duration-200">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                  </svg>
+                </a>
+                <a href="https://www.facebook.com/kevin.laanmets" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+                  className="w-9 h-9 rounded-full border border-black/10 flex items-center justify-center text-dark/50 hover:text-dark hover:border-black/30 transition-all duration-200">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                  </svg>
+                </a>
+                <div className="h-5 w-px bg-black/10 mx-1" />
+                <img
+                  src="https://cdn.prod.website-files.com/6942937ef5e1b2e432918a2f/6943bca40732694841061d80_logo.svg"
+                  alt="Kodumaa"
+                  className="h-8 opacity-40 hover:opacity-70 transition-opacity duration-200"
+                />
+              </div>
+            </div>
+
+          {/* ── Photo ── */}
+          <div
+            className="relative"
+            style={{ opacity: 0, animation: "fadeUp .7s .3s ease forwards" }}
+          >
+            <div className="relative rounded-3xl overflow-visible bg-stone-100 aspect-[3/4] md:aspect-[4/5] max-w-md ml-auto">
+              <div className="absolute inset-0 rounded-3xl overflow-hidden border border-stone-200">
+                <Image
+                  src="/laanmets.jpg"
+                  alt="Kevin Laanmets"
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 1024px) 90vw, 44vw"
+                />
+                <div className="absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-t from-stone-100/60 to-transparent" />
+              </div>
+
+              {/* Stat cards */}
+              <div className="absolute -left-5 top-10 bg-white rounded-2xl shadow-lg shadow-stone-200/80 px-4 py-3 border border-stone-100 z-10">
+                <div className="text-xl font-extrabold text-[#161616] leading-none">100+</div>
+                <div className="text-xs text-stone-500 font-medium mt-1">Klienti aidatud</div>
+              </div>
+              <div className="absolute -left-5 top-[45%] bg-white rounded-2xl shadow-lg shadow-stone-200/80 px-4 py-3 border border-stone-100 z-10">
+                <div className="text-xl font-extrabold text-accent leading-none">~68p</div>
+                <div className="text-xs text-stone-500 font-medium mt-1">Keskmine tehinguaeg</div>
+              </div>
+              <div className="absolute -right-5 top-20 bg-white rounded-2xl shadow-lg shadow-stone-200/80 px-4 py-3 border border-stone-100 z-10">
+                <div className="text-xl font-extrabold text-[#161616] leading-none">TOP 1</div>
+                <div className="text-xs text-stone-500 font-medium mt-1">Kodumaa käive 2025</div>
+              </div>
+              <div className="absolute -right-5 bottom-20 bg-white rounded-2xl shadow-lg shadow-stone-200/80 px-4 py-3 border border-stone-100 z-10">
+                <div className="text-xl font-extrabold text-accent leading-none">5+</div>
+                <div className="text-xs text-stone-500 font-medium mt-1">Aastat müügikogemust</div>
+              </div>
+            </div>
+          </div>
+
+          </div>{/* /grid */}
+        </div>{/* /max-w-7xl */}
+      </div>{/* /flex-1 */}
     </section>
+  );
+}
+
+/* ─── VIDEO MODAL ────────────────────────────────────────── */
+
+function VideoModal({ src, onClose }: { src: string; onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      {/* Close button */}
+      <button
+        onClick={onClose}
+        className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/15 flex items-center justify-center text-white hover:bg-white/30 transition-colors duration-200 z-10"
+        aria-label="Sulge"
+      >
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      {/* Video — stop click propagation so overlay-click closes but video-click doesn't */}
+      <div
+        className="relative rounded-2xl overflow-hidden shadow-2xl"
+        style={{ height: "min(90vh, 680px)", aspectRatio: "9/16" }}
+        onClick={e => e.stopPropagation()}
+      >
+        <video
+          src={src}
+          autoPlay
+          controls
+          playsInline
+          className="w-full h-full object-cover"
+        />
+      </div>
+    </div>
   );
 }
 
 /* ─── REELS STRIP ────────────────────────────────────────── */
 
-function ReelsStrip() {
-  const videos = REELS.slice(0, 8);
-
+function ReelThumb({ src, onClick }: { src: string; onClick: () => void }) {
   return (
-    <section className="bg-stone-50 border-y border-stone-200 py-10 md:py-14">
-      <div className="max-w-5xl mx-auto px-6 md:px-14">
-        <div className="grid grid-cols-4 gap-3">
-          {videos.map((r, i) => (
-            <div
-              key={i}
-              className="rounded-xl overflow-hidden bg-stone-900"
-              style={{ aspectRatio: "9/16" }}
-            >
-              <video
-                src={r.src}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover pointer-events-none"
-              />
-            </div>
-          ))}
+    <div className="relative group cursor-pointer" onClick={onClick}>
+      <video src={src} autoPlay muted loop playsInline className="w-full h-full object-cover" />
+      {/* Play-ikoon hover/tap peal */}
+      <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-colors duration-200">
+        <div className="w-10 h-10 rounded-full bg-white/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-lg">
+          <svg className="w-4 h-4 text-stone-900 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z" />
+          </svg>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
 
-/* ─── ABOUT ──────────────────────────────────────────────── */
-
-function About() {
-  const { ref, visible } = useFadeIn(0.08);
+function ReelsStrip() {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const marqueeReels = [...REELS, ...REELS];
+  const mobileReels = REELS.slice(0, 6);
 
   return (
-    <section
-      ref={ref as React.RefObject<HTMLElement>}
-      id="about"
-      className={`bg-white transition-all duration-1000 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-    >
-      <div className="mx-auto max-w-7xl px-6 md:px-14 py-16 md:py-40">
-        <div className="grid md:grid-cols-[1fr_1.15fr] gap-10 md:gap-20 items-center">
+    <>
+      {activeVideo && <VideoModal src={activeVideo} onClose={() => setActiveVideo(null)} />}
 
-          {/* Photo */}
-          <div className="relative">
-            <div
-              className="relative overflow-hidden rounded-[18px] bg-canvas"
-              style={{ aspectRatio: "3/4", boxShadow: "0 32px 80px -16px rgba(0,0,0,0.18)" }}
-            >
-              <Image
-                src="/laanmets.jpg"
-                alt="Laanmets – Real Estate Broker"
-                fill
-                className="object-cover object-top"
-                sizes="(max-width: 768px) 90vw, 44vw"
-              />
-            </div>
-          </div>
+      <section className="bg-stone-50 border-y border-stone-200 py-14 md:py-20 overflow-hidden">
 
-          {/* Text */}
-          <div>
-            <h2
-              className="font-display font-bold text-dark leading-[1.0] mt-4 mb-5"
-              style={{ fontSize: "clamp(2.6rem, 5vw, 4.8rem)", letterSpacing: "-0.02em" }}
-            >
-              Usaldus,<br />
-              läbipaistvus ja kindel tulemus
-            </h2>
-            <div className="space-y-5 text-muted leading-[1.85] text-[0.96rem]">
-              <p>
-                Minu jaoks on maakleritöös kõige olulisemad asjad usaldus, läbipaistev suhtlus ja kliendi eesmärkide saavutamine. Olen maakler, kes peab oluliseks selget suhtlust, ausust ja lahendusi, mis viivad Sind soovitud tulemuseni.
-              </p>
-            </div>
-
-            <div className="mt-10 pt-10 border-t border-line grid grid-cols-3 gap-8">
-              {[["100+", "Rahulolevat klienti"], ["68", "Päeva keskmine tehinguperiood"], ["5+", "Aastat müügikogemust"]].map(([n, l]) => (
-                <div key={l}>
-                  <div className="font-display font-bold text-[2.8rem] leading-none text-dark">{n}</div>
-                  <div className="mt-2 text-[0.62rem] font-semibold tracking-[0.18em] uppercase text-muted">{l}</div>
+        {/* Desktop: auto-scroll marquee */}
+        <div className="hidden md:block">
+          <div className="max-w-7xl mx-auto px-6 overflow-hidden">
+            <div className="flex gap-4 animate-scroll-left" style={{ width: "max-content" }}>
+              {marqueeReels.map((r, i) => (
+                <div
+                  key={i}
+                  className="shrink-0 w-[200px] rounded-3xl overflow-hidden bg-stone-900"
+                  style={{ aspectRatio: "9/16" }}
+                >
+                  <ReelThumb src={r.src} onClick={() => setActiveVideo(r.src)} />
                 </div>
               ))}
             </div>
           </div>
         </div>
-      </div>
-    </section>
+
+        {/* Mobile: 3-column grid */}
+        <div className="md:hidden grid grid-cols-3 gap-3 px-6">
+          {mobileReels.map((r, i) => (
+            <div
+              key={i}
+              className="rounded-2xl overflow-hidden bg-stone-900"
+              style={{ aspectRatio: "9/16" }}
+            >
+              <ReelThumb src={r.src} onClick={() => setActiveVideo(r.src)} />
+            </div>
+          ))}
+        </div>
+
+      </section>
+    </>
   );
 }
 
@@ -780,7 +855,6 @@ export default function Page() {
     <>
       <Hero />
       <ReelsStrip />
-      <About />
       <Services />
       <Listings />
       <SalesProcess />

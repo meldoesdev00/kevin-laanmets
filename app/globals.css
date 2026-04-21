@@ -28,7 +28,7 @@
 }
 
 .animate-scroll-left {
-  animation: scroll-left 70s linear infinite;
+  animation: scroll-left 120s linear infinite;
   animation-play-state: running !important;
   will-change: transform;
 }
