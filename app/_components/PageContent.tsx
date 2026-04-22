@@ -736,68 +736,27 @@ function Contact({ contact }: { contact: SanityContact }) {
       className={`bg-stone-50 border-t border-stone-200 transition-all duration-1000 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-6 py-12 md:py-28">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-end">
+        {/* 3-block layout:
+            Mobile:  [header] → [CTA card] → [contact links]
+            Desktop: [header + contact links] left col | [CTA card] right col (spanning both rows) */}
+        <div className="flex flex-col gap-8 lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start">
 
-          <div className="order-2 lg:order-2 min-w-0">
+          {/* 1 — Header */}
+          <div className="order-1 lg:col-start-1 lg:row-start-1 min-w-0">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent text-white text-xs font-semibold uppercase tracking-widest mb-6">
               Kontakt
             </div>
             <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-extrabold leading-[1.1] tracking-tight text-[#161616] mb-6">
               Alusta oma<br />kinnisvara<br />teekonda.
             </h2>
-            <p className="text-stone-500 leading-relaxed mb-10 text-[0.95rem]">
+            <p className="text-stone-500 leading-relaxed text-[0.95rem]">
               Olenemata sellest, kas oled ostja või müüja —<br />olen siin, et aidata sul teha parim otsus.
             </p>
-
-            <div className="flex flex-col gap-4">
-              <a href={phoneHref} className="group flex items-center gap-4 p-4 sm:p-5 rounded-2xl bg-white border border-stone-200 hover:border-stone-300 hover:shadow-sm transition-all duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#161616] text-white flex items-center justify-center shrink-0 group-hover:bg-accent transition-colors duration-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256">
-                    <path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-25.12a7.93,7.93,0,0,0,.56-.76,16,16,0,0,0,1.28-15.23l-.06-.13L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46Z"/>
-                  </svg>
-                </div>
-                <div>
-                  <div className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-0.5">Telefon</div>
-                  <div className="font-bold text-[#161616] text-sm">{phone}</div>
-                </div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="ml-auto text-stone-300" viewBox="0 0 256 256">
-                  <path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/>
-                </svg>
-              </a>
-
-              <a href={mailHref} className="group flex items-center gap-4 p-4 sm:p-5 rounded-2xl bg-white border border-stone-200 hover:border-stone-300 hover:shadow-sm transition-all duration-200 min-w-0">
-                <div className="w-10 h-10 rounded-xl bg-[#161616] text-white flex items-center justify-center shrink-0 group-hover:bg-accent transition-colors duration-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256">
-                    <path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/>
-                  </svg>
-                </div>
-                <div className="min-w-0">
-                  <div className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-0.5">E-post</div>
-                  <div className="font-bold text-[#161616] text-sm truncate">{email}</div>
-                </div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="ml-auto shrink-0 text-stone-300" viewBox="0 0 256 256">
-                  <path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/>
-                </svg>
-              </a>
-
-              <a href={kvUrl} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 p-4 sm:p-5 rounded-2xl bg-white border border-stone-200 hover:border-stone-300 hover:shadow-sm transition-all duration-200 min-w-0">
-                <div className="w-10 h-10 rounded-xl bg-[#161616] flex items-center justify-center shrink-0 group-hover:bg-accent transition-colors duration-300">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="https://www.kv.ee/favicon.ico" alt="KV.EE" width={20} height={20} style={{ filter: "brightness(0) invert(1)" }} />
-                </div>
-                <div className="min-w-0">
-                  <div className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-0.5">KV.EE profiil</div>
-                  <div className="font-bold text-[#161616] text-sm truncate">{kvUrl.replace("https://", "")}</div>
-                </div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="ml-auto shrink-0 text-stone-300" viewBox="0 0 256 256">
-                  <path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/>
-                </svg>
-              </a>
-            </div>
           </div>
 
-          <div className="order-1 lg:order-1 min-w-0">
-            <div className="rounded-3xl p-6 sm:p-10 border border-stone-200 bg-white relative overflow-hidden">
+          {/* 2 — CTA card (2nd on mobile, right col spanning both rows on desktop) */}
+          <div className="order-2 lg:col-start-2 lg:row-start-1 lg:row-span-2 min-w-0">
+            <div className="rounded-3xl p-6 sm:p-10 border border-stone-200 bg-white">
               <h3 className="text-2xl font-extrabold tracking-tight text-[#161616] mb-3">Valmis alustama?</h3>
               <p className="text-stone-500 text-sm leading-relaxed mb-8 font-normal">
                 Esimene konsultatsioon on alati tasuta. Räägi mulle oma soovidest ja vaatame koos, kuidas saan aidata.
@@ -816,25 +775,66 @@ function Contact({ contact }: { contact: SanityContact }) {
                 ))}
               </div>
               <div className="flex flex-col gap-3">
-                <a
-                  href={phoneHref}
-                  className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl bg-accent text-white font-semibold text-sm hover:opacity-90 transition-all duration-300 hover:-translate-y-0.5"
-                >
+                <a href={phoneHref} className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl bg-accent text-white font-semibold text-sm hover:opacity-90 transition-all duration-300 hover:-translate-y-0.5">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
                     <path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-25.12a7.93,7.93,0,0,0,.56-.76,16,16,0,0,0,1.28-15.23l-.06-.13L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46Z"/>
                   </svg>
                   Helista kohe
                 </a>
-                <a
-                  href={smsHref}
-                  className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl border border-stone-200 text-[#161616] font-semibold text-sm hover:border-stone-300 hover:bg-stone-50 transition-all duration-300 hover:-translate-y-0.5"
-                >
+                <a href={smsHref} className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl border border-stone-200 text-[#161616] font-semibold text-sm hover:border-stone-300 hover:bg-stone-50 transition-all duration-300 hover:-translate-y-0.5">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
                     <path d="M216,48H40A16,16,0,0,0,24,64V224a8,8,0,0,0,13,6.22L72,208H216a16,16,0,0,0,16-16V64A16,16,0,0,0,216,48ZM216,192H69.49a8,8,0,0,0-5.23,1.95L40,214V64H216ZM88,112a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H96A8,8,0,0,1,88,112Zm0,32a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H96A8,8,0,0,1,88,144Z"/>
                   </svg>
                   Kirjuta mulle
                 </a>
               </div>
+            </div>
+          </div>
+
+          {/* 3 — Contact links (3rd on mobile, left col row 2 on desktop) */}
+          <div className="order-3 lg:col-start-1 lg:row-start-2 min-w-0">
+            <div className="flex flex-col gap-4">
+              <a href={phoneHref} className="group flex items-center gap-4 p-4 sm:p-5 rounded-2xl bg-white border border-stone-200 hover:border-stone-300 hover:shadow-sm transition-all duration-200">
+                <div className="w-10 h-10 rounded-xl bg-[#161616] text-white flex items-center justify-center shrink-0 group-hover:bg-accent transition-colors duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256">
+                    <path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-25.12a7.93,7.93,0,0,0,.56-.76,16,16,0,0,0,1.28-15.23l-.06-.13L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46Z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-0.5">Telefon</div>
+                  <div className="font-bold text-[#161616] text-sm">{phone}</div>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="ml-auto text-stone-300" viewBox="0 0 256 256">
+                  <path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/>
+                </svg>
+              </a>
+              <a href={mailHref} className="group flex items-center gap-4 p-4 sm:p-5 rounded-2xl bg-white border border-stone-200 hover:border-stone-300 hover:shadow-sm transition-all duration-200 min-w-0">
+                <div className="w-10 h-10 rounded-xl bg-[#161616] text-white flex items-center justify-center shrink-0 group-hover:bg-accent transition-colors duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256">
+                    <path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/>
+                  </svg>
+                </div>
+                <div className="min-w-0">
+                  <div className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-0.5">E-post</div>
+                  <div className="font-bold text-[#161616] text-sm truncate">{email}</div>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="ml-auto shrink-0 text-stone-300" viewBox="0 0 256 256">
+                  <path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/>
+                </svg>
+              </a>
+              <a href={kvUrl} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 p-4 sm:p-5 rounded-2xl bg-white border border-stone-200 hover:border-stone-300 hover:shadow-sm transition-all duration-200 min-w-0">
+                <div className="w-10 h-10 rounded-xl bg-[#161616] flex items-center justify-center shrink-0 group-hover:bg-accent transition-colors duration-300">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="https://www.kv.ee/favicon.ico" alt="KV.EE" width={20} height={20} style={{ filter: "brightness(0) invert(1)" }} />
+                </div>
+                <div className="min-w-0">
+                  <div className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-0.5">KV.EE profiil</div>
+                  <div className="font-bold text-[#161616] text-sm truncate">{kvUrl.replace("https://", "")}</div>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="ml-auto shrink-0 text-stone-300" viewBox="0 0 256 256">
+                  <path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/>
+                </svg>
+              </a>
             </div>
           </div>
 
