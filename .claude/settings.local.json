@@ -2,7 +2,22 @@
   "permissions": {
     "allow": [
       "Bash(export PATH=\"/opt/homebrew/bin:/usr/local/bin:$PATH\")",
-      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --no-src-dir --import-alias \"@/*\" --yes)"
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --no-src-dir --import-alias \"@/*\" --yes)",
+      "Bash(npm run:*)",
+      "WebFetch(domain:flowspace.framer.website)",
+      "Bash(sort -t'/' -k1)",
+      "Bash(find '/Users/trickster_mel/Library/Application Support' -name *.jpg -o -name *.jpeg -o -name *.png)",
+      "WebFetch(domain:www.aneteott.ee)",
+      "WebFetch(domain:realator.framer.website)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(export PATH=\"/usr/local/bin:$PATH\")",
+      "Read(//usr/local/bin/**)",
+      "Read(//opt/homebrew/bin/**)",
+      "Bash(node /usr/local/bin/npm run build)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3001)",
+      "Bash(npx tsc:*)",
+      "Bash(node -e ':*)",
+      "Bash(npx next:*)"
     ]
   }
 }

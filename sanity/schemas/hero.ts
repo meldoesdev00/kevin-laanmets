@@ -1,5 +1,20 @@
 import { defineField, defineType } from "sanity";
 
+const BUTTON_COLORS = [
+  { title: "Roheline täidetud", value: "accent" },
+  { title: "Must täidetud", value: "dark" },
+  { title: "Roheline äärisega", value: "accent-outline" },
+  { title: "Must äärisega", value: "dark-outline" },
+];
+
+const LINK_TARGETS = [
+  { title: "Kontakt sektsioon", value: "#contact" },
+  { title: "Teenused sektsioon", value: "#services" },
+  { title: "KV.EE portfell", value: "https://www.kv.ee/broker/kevinkristoferlaanmets" },
+  { title: "Instagram", value: "https://www.instagram.com/kevin.laanmets" },
+  { title: "Facebook", value: "https://www.facebook.com/kevin.laanmets" },
+];
+
 export default defineType({
   name: "hero",
   title: "Hero sektsioon",
@@ -9,20 +24,44 @@ export default defineType({
     defineField({ name: "subtext", title: "Kirjeldus", type: "text", rows: 3 }),
     defineField({
       name: "primaryButton",
-      title: "Nupp 1 (roheline täidetud)",
+      title: "Nupp 1",
       type: "object",
       fields: [
         defineField({ name: "label", title: "Tekst", type: "string" }),
-        defineField({ name: "href", title: "Link", type: "string" }),
+        defineField({
+          name: "href",
+          title: "Link (kuhu viib)",
+          type: "string",
+          options: { list: LINK_TARGETS },
+        }),
+        defineField({
+          name: "color",
+          title: "Värv",
+          type: "string",
+          initialValue: "accent",
+          options: { list: BUTTON_COLORS },
+        }),
       ],
     }),
     defineField({
       name: "secondaryButton",
-      title: "Nupp 2 (roheline äärisega)",
+      title: "Nupp 2",
       type: "object",
       fields: [
         defineField({ name: "label", title: "Tekst", type: "string" }),
-        defineField({ name: "href", title: "Link", type: "string" }),
+        defineField({
+          name: "href",
+          title: "Link (kuhu viib)",
+          type: "string",
+          options: { list: LINK_TARGETS },
+        }),
+        defineField({
+          name: "color",
+          title: "Värv",
+          type: "string",
+          initialValue: "accent-outline",
+          options: { list: BUTTON_COLORS },
+        }),
       ],
     }),
     defineField({
@@ -35,7 +74,7 @@ export default defineType({
     defineField({ name: "facebookUrl", title: "Facebook link", type: "url" }),
     defineField({
       name: "statCards",
-      title: "Statistika cardid",
+      title: "Statistika cardid (pildil)",
       type: "array",
       of: [
         {
@@ -45,9 +84,14 @@ export default defineType({
             defineField({ name: "label", title: "Silt (nt Klienti aidatud)", type: "string" }),
             defineField({
               name: "color",
-              title: "Värv",
+              title: "Numbri värv",
               type: "string",
-              options: { list: [{ title: "Roheline (accent)", value: "accent" }, { title: "Must (dark)", value: "dark" }] },
+              options: {
+                list: [
+                  { title: "Roheline", value: "accent" },
+                  { title: "Must", value: "dark" },
+                ],
+              },
             }),
             defineField({
               name: "position",
@@ -63,9 +107,7 @@ export default defineType({
               },
             }),
           ],
-          preview: {
-            select: { title: "value", subtitle: "label" },
-          },
+          preview: { select: { title: "value", subtitle: "label" } },
         },
       ],
     }),

@@ -11,8 +11,8 @@ type SanityImageUrl = { asset: { url: string } } | null;
 export type SanityHero = {
   headline?: string;
   subtext?: string;
-  primaryButton?: { label?: string; href?: string };
-  secondaryButton?: { label?: string; href?: string };
+  primaryButton?: { label?: string; href?: string; color?: string };
+  secondaryButton?: { label?: string; href?: string; color?: string };
   photo?: SanityImageUrl;
   instagramUrl?: string;
   facebookUrl?: string;
@@ -23,8 +23,8 @@ export type SanityServices = {
   sectionTitle?: string;
   bullets?: string[];
   ctaLabel?: string;
-  ctaHref?: string;
-  cards?: Array<{ _key?: string; title?: string; body?: string }>;
+  ctaColor?: string;
+  cards?: Array<{ _key?: string; title?: string; body?: string; iconColor?: string }>;
 } | null;
 
 export type SanityTestimonials = {
@@ -43,7 +43,7 @@ export type SanityContact = {
   phone?: string;
   email?: string;
   kvUrl?: string;
-  whatsappUrl?: string;
+  smsNumber?: string;
   ctaHeadline?: string;
   ctaSubtext?: string;
 } | null;
@@ -56,6 +56,18 @@ export type PageData = {
   reels: SanityReels;
   contact: SanityContact;
 };
+
+/* ─── BUTTON COLOR HELPER ────────────────────────────────── */
+
+function btnClass(color: string | undefined, fallback: string): string {
+  switch (color) {
+    case "accent":         return "bg-accent text-white hover:opacity-90";
+    case "dark":           return "bg-[#161616] text-white hover:opacity-90";
+    case "accent-outline": return "border border-accent text-accent hover:bg-accent/10";
+    case "dark-outline":   return "border border-[#161616] text-[#161616] hover:bg-black/5";
+    default:               return fallback;
+  }
+}
 
 /* ─── FALLBACK DATA ──────────────────────────────────────── */
 
@@ -210,9 +222,9 @@ function Hero({ hero }: { hero: SanityHero }) {
               >
                 <a
                   href={primaryBtn?.href ?? "https://www.kv.ee/broker/kevinkristoferlaanmets"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 rounded-full bg-accent text-white px-8 py-3.5 text-[0.7rem] font-semibold tracking-[0.14em] uppercase hover:opacity-90 transition-opacity duration-300"
+                  target={primaryBtn?.href?.startsWith("http") ? "_blank" : undefined}
+                  rel={primaryBtn?.href?.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className={`inline-flex items-center gap-2.5 rounded-full px-8 py-3.5 text-[0.7rem] font-semibold tracking-[0.14em] uppercase transition-all duration-300 ${btnClass(primaryBtn?.color, "bg-accent text-white hover:opacity-90")}`}
                 >
                   {primaryBtn?.label ?? "Minu portfell"}
                   <svg className="w-3.5 h-3.5 -rotate-45" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -221,7 +233,9 @@ function Hero({ hero }: { hero: SanityHero }) {
                 </a>
                 <a
                   href={secondaryBtn?.href ?? "#contact"}
-                  className="inline-flex items-center gap-2.5 rounded-full border border-accent text-accent px-8 py-3.5 text-[0.7rem] font-semibold tracking-[0.14em] uppercase hover:bg-accent/10 transition-all duration-300"
+                  target={secondaryBtn?.href?.startsWith("http") ? "_blank" : undefined}
+                  rel={secondaryBtn?.href?.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className={`inline-flex items-center gap-2.5 rounded-full px-8 py-3.5 text-[0.7rem] font-semibold tracking-[0.14em] uppercase transition-all duration-300 ${btnClass(secondaryBtn?.color, "border border-accent text-accent hover:bg-accent/10")}`}
                 >
                   {secondaryBtn?.label ?? "Broneeri tasuta konsultatsioon"}
                 </a>
@@ -395,8 +409,8 @@ function Services({ services }: { services: SanityServices }) {
   const { ref, visible } = useFadeIn(0.08);
 
   const sectionTitle = services?.sectionTitle ?? "Pakutavad teenused";
-  const ctaLabel = services?.ctaLabel ?? "Broneeri\nkonsultatsioon";
-  const ctaHref = services?.ctaHref ?? "#contact";
+  const ctaLabel = services?.ctaLabel ?? "Broneeri konsultatsioon";
+  const ctaColor = services?.ctaColor;
   const bullets = services?.bullets?.length
     ? services.bullets
     : [
@@ -405,11 +419,12 @@ function Services({ services }: { services: SanityServices }) {
         "Koostan personaalse müügistrateegia just Sinu kodule.",
       ];
 
-  // Merge Sanity card text with hardcoded icons
+  // Merge Sanity card text + iconColor with hardcoded icons
   const cards = DEFAULT_SERVICES.map((def, i) => ({
     icon: def.icon,
     title: services?.cards?.[i]?.title ?? def.title,
     body: services?.cards?.[i]?.body ?? def.body,
+    iconColor: services?.cards?.[i]?.iconColor ?? "dark",
   }));
 
   return (
@@ -437,8 +452,8 @@ function Services({ services }: { services: SanityServices }) {
               ))}
             </ul>
             <a
-              href={ctaHref}
-              className="inline-flex items-center gap-2.5 rounded-full bg-accent text-white px-7 py-3.5 text-[0.7rem] font-semibold tracking-[0.14em] uppercase hover:opacity-90 transition-opacity duration-300"
+              href="#contact"
+              className={`inline-flex items-center gap-2.5 rounded-full px-7 py-3.5 text-[0.7rem] font-semibold tracking-[0.14em] uppercase transition-all duration-300 ${btnClass(ctaColor, "bg-accent text-white hover:opacity-90")}`}
             >
               {ctaLabel}
               <svg className="w-3.5 h-3.5 -rotate-45" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -451,7 +466,7 @@ function Services({ services }: { services: SanityServices }) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {cards.map((s, i) => (
               <div key={i} className="flex flex-col gap-5 rounded-2xl border border-black/10 bg-white p-6 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-                <div className="w-11 h-11 rounded-full border border-black/10 flex items-center justify-center text-dark flex-shrink-0 p-2.5">
+                <div className={`w-11 h-11 rounded-full border border-black/10 flex items-center justify-center flex-shrink-0 p-2.5 ${s.iconColor === "accent" ? "text-accent" : "text-dark"}`}>
                   {s.icon}
                 </div>
                 <div className="flex flex-col gap-1">
@@ -710,7 +725,8 @@ function Contact({ contact }: { contact: SanityContact }) {
   const phone = contact?.phone ?? "+37253935292";
   const email = contact?.email ?? "kevin@kodumaa.ee";
   const kvUrl = contact?.kvUrl ?? "https://www.kv.ee/broker/kevinkristoferlaanmets";
-  const whatsappUrl = contact?.whatsappUrl ?? "https://wa.me/37253935292?text=Tere%2C+sooviksin+rohkem+infot.";
+  const smsNumber = contact?.smsNumber ?? phone.replace(/\s/g, "");
+  const smsHref = `sms:${smsNumber}`;
 
   const phoneHref = `tel:${phone.replace(/\s/g, "")}`;
   const mailHref = `mailto:${email}`;
@@ -812,13 +828,11 @@ function Contact({ contact }: { contact: SanityContact }) {
                   Helista kohe
                 </a>
                 <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={smsHref}
                   className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl border border-stone-200 text-[#161616] font-semibold text-sm hover:border-stone-300 hover:bg-stone-50 transition-all duration-300 hover:-translate-y-0.5"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
-                    <path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/>
+                    <path d="M216,48H40A16,16,0,0,0,24,64V224a8,8,0,0,0,13,6.22L72,208H216a16,16,0,0,0,16-16V64A16,16,0,0,0,216,48ZM216,192H69.49a8,8,0,0,0-5.23,1.95L40,214V64H216ZM88,112a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H96A8,8,0,0,1,88,112Zm0,32a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H96A8,8,0,0,1,88,144Z"/>
                   </svg>
                   Kirjuta mulle
                 </a>
