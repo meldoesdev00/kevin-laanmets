@@ -738,7 +738,7 @@ function Contact({ contact }: { contact: SanityContact }) {
       <div className="max-w-7xl mx-auto px-5 sm:px-6 py-12 md:py-28">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-end">
 
-          <div className="lg:order-2 min-w-0">
+          <div className="order-2 lg:order-2 min-w-0">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent text-white text-xs font-semibold uppercase tracking-widest mb-6">
               Kontakt
             </div>
@@ -796,7 +796,7 @@ function Contact({ contact }: { contact: SanityContact }) {
             </div>
           </div>
 
-          <div className="lg:order-1 min-w-0">
+          <div className="order-1 lg:order-1 min-w-0">
             <div className="rounded-3xl p-6 sm:p-10 border border-stone-200 bg-white relative overflow-hidden">
               <h3 className="text-2xl font-extrabold tracking-tight text-[#161616] mb-3">Valmis alustama?</h3>
               <p className="text-stone-500 text-sm leading-relaxed mb-8 font-normal">
