@@ -19,6 +19,10 @@ export const metadata: Metadata = {
   title: "Laanmets — Real Estate Tallinn",
   description:
     "Trusted real estate broker in Tallinn. Buying, selling and renting — transparent, personal and results-driven.",
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
