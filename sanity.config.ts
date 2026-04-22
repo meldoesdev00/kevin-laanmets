@@ -1,6 +1,7 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
+import { mediaPlugin } from "sanity-plugin-media";
 import { schemaTypes } from "./sanity/schemas";
 
 const singletons = ["hero", "services", "testimonials", "salesProcess", "reels", "contact"];
@@ -11,6 +12,7 @@ export default defineConfig({
   projectId: "djktjdvq",
   dataset: "production",
   plugins: [
+    mediaPlugin(),
     structureTool({
       structure: (S) =>
         S.list()
