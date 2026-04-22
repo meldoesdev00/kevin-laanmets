@@ -127,6 +127,10 @@ export const metadata: Metadata = {
     images: ["/laanmets.jpg"],
   },
 
+  verification: {
+    google: "BGIBtHwNUNqkFgJLsg-x9L-tOjNxQnJZES9gEC_Lzc0",
+  },
+
   icons: {
     icon: "/favicon.png",
     apple: "/favicon.png",
