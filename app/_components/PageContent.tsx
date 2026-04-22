@@ -210,7 +210,7 @@ function Hero({ hero }: { hero: SanityHero }) {
               </h1>
 
               <p
-                className="hidden lg:block text-muted leading-[1.85] text-[0.95rem] mb-8 md:mb-10 max-w-[360px]"
+                className="text-muted leading-[1.85] text-[0.95rem] mb-8 md:mb-10 max-w-[360px]"
                 style={{ opacity: 0, animation: "fadeUp .65s .35s ease forwards" }}
               >
                 {subtext ?? "Aitan nii ostjaid kui müüjaid kogu protsessi vältel alates esimesest konsultatsioonist kuni eduka tehingu lõpule viimiseni."}
@@ -268,7 +268,7 @@ function Hero({ hero }: { hero: SanityHero }) {
               className="relative -mt-10"
               style={{ opacity: 0, animation: "fadeUp .7s .3s ease forwards" }}
             >
-              <div className="relative rounded-3xl overflow-visible bg-stone-100 aspect-[3/4] md:aspect-[4/5] max-w-[480px] ml-auto">
+              <div className="relative rounded-3xl overflow-visible bg-stone-100 aspect-[4/5] md:aspect-[4/5] max-w-[480px] ml-auto">
                 <div className="absolute inset-0 rounded-3xl overflow-hidden border border-stone-200">
                   <Image
                     src={photoUrl ?? "/laanmets.jpg"}
