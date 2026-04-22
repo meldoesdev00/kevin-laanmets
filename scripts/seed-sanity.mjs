@@ -16,7 +16,7 @@ const docs = [
     subtext:
       "Aitan nii ostjaid kui müüjaid kogu protsessi vältel alates esimesest konsultatsioonist kuni eduka tehingu lõpule viimiseni.",
     primaryButton: { label: "Minu portfell", href: "https://www.kv.ee/broker/kevinkristoferlaanmets", color: "accent" },
-    secondaryButton: { label: "Broneeri tasuta konsultatsioon", href: "#contact", color: "accent-outline" },
+    secondaryButton: { label: "Broneeri tasuta konsultatsioon", color: "accent-outline" },
     instagramUrl: "https://www.instagram.com/kevin.laanmets",
     facebookUrl: "https://www.facebook.com/kevin.laanmets",
     statCards: [

@@ -232,9 +232,7 @@ function Hero({ hero }: { hero: SanityHero }) {
                   </svg>
                 </a>
                 <a
-                  href={secondaryBtn?.href ?? "#contact"}
-                  target={secondaryBtn?.href?.startsWith("http") ? "_blank" : undefined}
-                  rel={secondaryBtn?.href?.startsWith("http") ? "noopener noreferrer" : undefined}
+                  href="#contact"
                   className={`inline-flex items-center gap-2.5 rounded-full px-8 py-3.5 text-[0.7rem] font-semibold tracking-[0.14em] uppercase transition-all duration-300 ${btnClass(secondaryBtn?.color, "border border-accent text-accent hover:bg-accent/10")}`}
                 >
                   {secondaryBtn?.label ?? "Broneeri tasuta konsultatsioon"}

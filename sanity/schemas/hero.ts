@@ -45,16 +45,10 @@ export default defineType({
     }),
     defineField({
       name: "secondaryButton",
-      title: "Nupp 2",
+      title: "Nupp 2 (viib alati kontakt sektsiooni)",
       type: "object",
       fields: [
         defineField({ name: "label", title: "Tekst", type: "string" }),
-        defineField({
-          name: "href",
-          title: "Link (kuhu viib)",
-          type: "string",
-          options: { list: LINK_TARGETS },
-        }),
         defineField({
           name: "color",
           title: "Värv",
