@@ -231,12 +231,12 @@ function Hero({ hero }: { hero: SanityHero }) {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
                 </a>
-                <a
-                  href="#contact"
+                <button
+                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
                   className={`inline-flex items-center gap-2.5 rounded-full px-8 py-3.5 text-[0.7rem] font-semibold tracking-[0.14em] uppercase transition-all duration-300 ${btnClass(secondaryBtn?.color, "border border-accent text-accent hover:bg-accent/10")}`}
                 >
                   {secondaryBtn?.label ?? "Broneeri tasuta konsultatsioon"}
-                </a>
+                </button>
               </div>
 
               {/* Sotsiaalid */}
@@ -449,15 +449,15 @@ function Services({ services }: { services: SanityServices }) {
                 </li>
               ))}
             </ul>
-            <a
-              href="#contact"
+            <button
+              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
               className={`inline-flex items-center gap-2.5 rounded-full px-7 py-3.5 text-[0.7rem] font-semibold tracking-[0.14em] uppercase transition-all duration-300 ${btnClass(ctaColor, "bg-accent text-white hover:opacity-90")}`}
             >
               {ctaLabel}
               <svg className="w-3.5 h-3.5 -rotate-45" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
               </svg>
-            </a>
+            </button>
           </div>
 
           {/* Right – 2×2 cards */}
