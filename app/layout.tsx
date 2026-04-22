@@ -15,7 +15,7 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
-const BASE_URL = "https://laanmets.ee";
+const BASE_URL = "https://kevinlaanmets.ee";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
