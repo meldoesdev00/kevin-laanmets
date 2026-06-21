@@ -3,6 +3,7 @@ import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { media } from "sanity-plugin-media";
 import { schemaTypes } from "./sanity/schemas";
+import { HinnastamiseStatistika } from "./sanity/components/HinnastamiseStatistika";
 
 const singletons = ["hero", "services", "testimonials", "salesProcess", "reels", "contact"];
 
@@ -36,6 +37,12 @@ export default defineConfig({
                 S.list()
                   .title("Hinnastamise päringud")
                   .items([
+                    S.listItem().title("📊 Statistika").id("hinnastamisStatistika")
+                      .child(
+                        S.component(HinnastamiseStatistika)
+                          .id("hinnastamiseStatistikaComponent")
+                          .title("Statistika")
+                      ),
                     S.listItem().title("Müügisoovijad (JAH)").id("hinnastamisJah")
                       .child(
                         S.documentTypeList("hinnastamisParing")
