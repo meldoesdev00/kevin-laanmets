@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import { HinnastamineProvider } from "./_components/HinnastamineContext";
+import HinnastamineModal from "./_components/HinnastamineModal";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -222,7 +224,10 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans bg-canvas text-dark antialiased w-full max-w-full overflow-x-hidden">
-        {children}
+        <HinnastamineProvider>
+          {children}
+          <HinnastamineModal />
+        </HinnastamineProvider>
       </body>
     </html>
   );

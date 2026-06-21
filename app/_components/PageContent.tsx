@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import listingsData from "../../data/listings.json";
+import { useHinnastamine } from "./HinnastamineContext";
 
 /* ─── TYPES ──────────────────────────────────────────────── */
 
@@ -149,6 +150,7 @@ function useFadeIn(threshold = 0.1) {
 /* ─── HERO ───────────────────────────────────────────────── */
 
 function Hero({ hero }: { hero: SanityHero }) {
+  const { open: openHinnastamine } = useHinnastamine();
   const photoUrl = hero?.photo?.asset?.url ?? null;
   const headline = hero?.headline;
   const subtext = hero?.subtext;
@@ -232,10 +234,10 @@ function Hero({ hero }: { hero: SanityHero }) {
                   </svg>
                 </a>
                 <button
-                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                  onClick={openHinnastamine}
                   className={`inline-flex items-center gap-2.5 rounded-full px-8 py-3.5 text-[0.7rem] font-semibold tracking-[0.14em] uppercase transition-all duration-300 ${btnClass(secondaryBtn?.color, "border border-accent text-accent hover:bg-accent/10")}`}
                 >
-                  {secondaryBtn?.label ?? "Broneeri tasuta konsultatsioon"}
+                  {secondaryBtn?.label ?? "Tasuta kinnisvara hinnastamine"}
                 </button>
               </div>
 
