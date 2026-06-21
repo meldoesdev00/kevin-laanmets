@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useClient } from "sanity";
 import { Card, Stack, Text, Flex, Spinner, Box, Heading } from "@sanity/ui";
 
-type Stats = { total: number; jah: number; ei: number };
+type Stats = { visits: number; total: number; jah: number; ei: number };
 
 function percent(n: number, total: number) {
   return total === 0 ? "0%" : `${Math.round((n / total) * 100)}%`;
@@ -44,6 +44,7 @@ export function HinnastamiseStatistika() {
     client
       .fetch<Stats>(
         `{
+          "visits": count(*[_type == "hinnastamiseKylastus"]),
           "total": count(*[_type == "hinnastamisParing"]),
           "jah": count(*[_type == "hinnastamisParing" && planToSell == "Jah"]),
           "ei": count(*[_type == "hinnastamisParing" && planToSell == "Ei"])
@@ -62,23 +63,38 @@ export function HinnastamiseStatistika() {
 
   return (
     <Box padding={4}>
-      <Stack space={4}>
-        <Heading size={1}>Hinnastamise päringute statistika</Heading>
-        <Flex gap={3} wrap="wrap">
-          <StatCard label="Kokku päringuid" value={stats.total} tone="primary" />
-          <StatCard
-            label="Soovib müüa (JAH)"
-            value={stats.jah}
-            sub={percent(stats.jah, stats.total)}
-            tone="positive"
-          />
-          <StatCard
-            label="Ei plaani praegu (EI)"
-            value={stats.ei}
-            sub={percent(stats.ei, stats.total)}
-            tone="caution"
-          />
-        </Flex>
+      <Stack space={5}>
+        <Stack space={4}>
+          <Heading size={1}>Lingi konversioon</Heading>
+          <Flex gap={3} wrap="wrap">
+            <StatCard label="Lingi klikid (/hinnastamine)" value={stats.visits} tone="primary" />
+            <StatCard
+              label="Jõudis JAH-ni"
+              value={stats.jah}
+              sub={`${percent(stats.jah, stats.visits)} klikkidest`}
+              tone="positive"
+            />
+          </Flex>
+        </Stack>
+
+        <Stack space={4}>
+          <Heading size={1}>Vormi täitnud päringud</Heading>
+          <Flex gap={3} wrap="wrap">
+            <StatCard label="Kokku päringuid" value={stats.total} tone="primary" />
+            <StatCard
+              label="Soovib müüa (JAH)"
+              value={stats.jah}
+              sub={percent(stats.jah, stats.total)}
+              tone="positive"
+            />
+            <StatCard
+              label="Ei plaani praegu (EI)"
+              value={stats.ei}
+              sub={percent(stats.ei, stats.total)}
+              tone="caution"
+            />
+          </Flex>
+        </Stack>
       </Stack>
     </Box>
   );

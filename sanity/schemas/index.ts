@@ -5,6 +5,7 @@ import salesProcess from "./salesProcess";
 import reels from "./reels";
 import contact from "./contact";
 import hinnastamisParing from "./hinnastamisParing";
+import hinnastamiseKylastus from "./hinnastamiseKylastus";
 
 export const schemaTypes = [
   hero,
@@ -14,4 +15,5 @@ export const schemaTypes = [
   reels,
   contact,
   hinnastamisParing,
+  hinnastamiseKylastus,
 ];

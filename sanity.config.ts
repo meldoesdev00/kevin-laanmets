@@ -63,6 +63,12 @@ export default defineConfig({
                           .title("Kõik päringud")
                           .defaultOrdering([{ field: "submittedAt", direction: "desc" }])
                       ),
+                    S.listItem().title("Lingi külastused").id("hinnastamisKylastused")
+                      .child(
+                        S.documentTypeList("hinnastamiseKylastus")
+                          .title("Lingi külastused")
+                          .defaultOrdering([{ field: "visitedAt", direction: "desc" }])
+                      ),
                   ])
               ),
           ]),
