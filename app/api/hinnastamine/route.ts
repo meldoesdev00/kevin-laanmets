@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { writeClient } from "@/sanity/lib/client";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM = "Kevin Laanmets <hinnastamine@kevinlaanmets.ee>";
@@ -11,6 +12,9 @@ type Body = {
   name?: string;
   phone?: string;
   email?: string;
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
 };
 
 function escapeHtml(s: string) {
@@ -19,7 +23,18 @@ function escapeHtml(s: string) {
 
 export async function POST(request: Request) {
   const body: Body = await request.json();
-  const { propertyType, rooms, address, planToSell, name, phone, email } = body;
+  const {
+    propertyType,
+    rooms,
+    address,
+    planToSell,
+    name,
+    phone,
+    email,
+    utmSource,
+    utmMedium,
+    utmCampaign,
+  } = body;
 
   const isLand = propertyType === "Maatükk";
 
@@ -35,7 +50,28 @@ export async function POST(request: Request) {
     return Response.json({ error: "Missing required fields." }, { status: 400 });
   }
 
-  // "Ei" päringud ei lähe kuhugi — vastaja näeb lehel ainult tänu-teksti.
+  // Iga päring (nii JAH kui EI) salvestatakse Sanity'sse, et Kevin saaks kõiki leadse
+  // Studios vaadata — emaili saadame allpool ainult JAH vastuse korral. Kui kirjutus
+  // ebaõnnestub (nt puudub veel write-tokenit), ei tohi see vormi esitamist katki teha.
+  try {
+    await writeClient.create({
+      _type: "hinnastamisParing",
+      name,
+      phone,
+      email,
+      propertyType,
+      rooms: isLand ? undefined : rooms,
+      address,
+      planToSell,
+      utmSource,
+      utmMedium,
+      utmCampaign,
+      submittedAt: new Date().toISOString(),
+    });
+  } catch (err) {
+    console.error("Failed to save hinnastamisParing to Sanity:", err);
+  }
+
   if (planToSell === "Ei") {
     return Response.json({ ok: true });
   }

@@ -30,6 +30,34 @@ export default defineConfig({
               .child(S.document().schemaType("salesProcess").documentId("salesProcess")),
             S.listItem().title("Kontakt").id("contact")
               .child(S.document().schemaType("contact").documentId("contact")),
+            S.divider(),
+            S.listItem().title("Hinnastamise päringud").id("hinnastamisParingud")
+              .child(
+                S.list()
+                  .title("Hinnastamise päringud")
+                  .items([
+                    S.listItem().title("Müügisoovijad (JAH)").id("hinnastamisJah")
+                      .child(
+                        S.documentTypeList("hinnastamisParing")
+                          .title("Müügisoovijad (JAH)")
+                          .filter('_type == "hinnastamisParing" && planToSell == "Jah"')
+                          .defaultOrdering([{ field: "submittedAt", direction: "desc" }])
+                      ),
+                    S.listItem().title("Ei plaani praegu (EI)").id("hinnastamisEi")
+                      .child(
+                        S.documentTypeList("hinnastamisParing")
+                          .title("Ei plaani praegu (EI)")
+                          .filter('_type == "hinnastamisParing" && planToSell == "Ei"')
+                          .defaultOrdering([{ field: "submittedAt", direction: "desc" }])
+                      ),
+                    S.listItem().title("Kõik päringud").id("hinnastamisKoik")
+                      .child(
+                        S.documentTypeList("hinnastamisParing")
+                          .title("Kõik päringud")
+                          .defaultOrdering([{ field: "submittedAt", direction: "desc" }])
+                      ),
+                  ])
+              ),
           ]),
     }),
     visionTool(),

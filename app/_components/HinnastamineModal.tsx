@@ -59,6 +59,7 @@ function ModalContent({ onClose }: { onClose: () => void }) {
     setError(null);
     setSubmitting(true);
     try {
+      const params = new URLSearchParams(window.location.search);
       const res = await fetch("/api/hinnastamine", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -70,6 +71,9 @@ function ModalContent({ onClose }: { onClose: () => void }) {
           name,
           phone,
           email,
+          utmSource: params.get("utm_source") ?? undefined,
+          utmMedium: params.get("utm_medium") ?? undefined,
+          utmCampaign: params.get("utm_campaign") ?? undefined,
         }),
       });
       if (!res.ok) throw new Error();

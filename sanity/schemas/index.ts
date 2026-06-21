@@ -4,5 +4,14 @@ import testimonials from "./testimonials";
 import salesProcess from "./salesProcess";
 import reels from "./reels";
 import contact from "./contact";
+import hinnastamisParing from "./hinnastamisParing";
 
-export const schemaTypes = [hero, services, testimonials, salesProcess, reels, contact];
+export const schemaTypes = [
+  hero,
+  services,
+  testimonials,
+  salesProcess,
+  reels,
+  contact,
+  hinnastamisParing,
+];
