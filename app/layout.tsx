@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { HinnastamineProvider } from "./_components/HinnastamineContext";
 import HinnastamineModal from "./_components/HinnastamineModal";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -229,6 +230,7 @@ export default function RootLayout({
           <HinnastamineModal />
         </HinnastamineProvider>
       </body>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "G-CCCB540JN2"} />
     </html>
   );
 }

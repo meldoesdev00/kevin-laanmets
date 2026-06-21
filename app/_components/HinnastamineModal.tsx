@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { sendGAEvent } from "@next/third-parties/google";
 import { useHinnastamine } from "./HinnastamineContext";
 
 type PropertyType = "" | "Korter" | "Maja" | "Ridaelamu" | "Suvila" | "Maatükk";
@@ -72,6 +73,19 @@ function ModalContent({ onClose }: { onClose: () => void }) {
         }),
       });
       if (!res.ok) throw new Error();
+
+      if (planToSell === "Jah") {
+        sendGAEvent("event", "generate_lead", {
+          property_type: propertyType,
+          plan_to_sell: "Jah",
+        });
+      } else {
+        sendGAEvent("event", "hinnastamine_ei", {
+          property_type: propertyType,
+          plan_to_sell: "Ei",
+        });
+      }
+
       setSubmittedPlan(planToSell);
     } catch {
       setError("Päringu saatmine ebaõnnestus. Palun proovi uuesti.");
