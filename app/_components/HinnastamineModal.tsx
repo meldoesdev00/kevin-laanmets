@@ -4,6 +4,12 @@ import { useEffect, useState } from "react";
 import { sendGAEvent } from "@next/third-parties/google";
 import { useHinnastamine } from "./HinnastamineContext";
 
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+  }
+}
+
 type PropertyType = "" | "Korter" | "Maja" | "Ridaelamu" | "Suvila" | "Maatükk";
 type PlanToSell = "" | "Jah" | "Ei";
 
@@ -82,6 +88,10 @@ function ModalContent({ onClose }: { onClose: () => void }) {
         sendGAEvent("event", "generate_lead", {
           property_type: propertyType,
           plan_to_sell: "Jah",
+        });
+        window.fbq?.("track", "Lead", {
+          content_name: "Hinnastamine",
+          property_type: propertyType,
         });
       } else {
         sendGAEvent("event", "hinnastamine_ei", {
